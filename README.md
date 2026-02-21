@@ -79,15 +79,15 @@ cmake --build .
 - [ ] Collision detection (AABB, OBB, Sphere)
 - [ ] Collision response
 
-### Phase 3 — Audio System
-- [ ] Audio file loading (WAV, OGG)
-- [ ] Basic playback and volume control
-- [ ] 3D positional audio
-
-### Phase 4 — Input System
+### Phase 3 — Input System
 - [ ] Keyboard and mouse input
 - [ ] Customizable input mapping / action system
 - [ ] Gamepad support
+
+### Phase 4 — Audio System
+- [ ] Audio file loading (WAV, OGG)
+- [ ] Basic playback and volume control
+- [ ] 3D positional audio
 
 ### Phase 5 — 2D Renderer
 - [ ] Sprite rendering
@@ -109,7 +109,6 @@ cmake --build .
 ## 📚 Learning Resources
 
 - [Vulkan Tutorial](https://vulkan-tutorial.com)
-- [learnopengl.com](https://learnopengl.com)
 - [3D Math Primer for Graphics and Game Development](https://gamemath.com)
 - [Game Engine Architecture – Jason Gregory](https://www.gameenginebook.com)
 
