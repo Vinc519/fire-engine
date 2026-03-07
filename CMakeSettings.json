@@ -1,0 +1,362 @@
+﻿{
+  "configurations": [
+    {
+      "name": "Windows-x64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "addressSanitizerRuntimeFlags": "detect_leaks=0",
+      "addressSanitizerEnabled": true,
+      "variables": [
+        {
+          "name": "FE_ENABLE_VULKAN",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_DX12",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_OPENGL",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_BUILD_SANDBOX",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_BUILD_TESTS",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_CLANG_TIDY",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_CLANG_FORMAT",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_ASAN",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_UBSAN",
+          "value": "OFF",
+          "type": "BOOL"
+        }
+      ],
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": ""
+    },
+    {
+      "name": "Windows-x64-Release",
+      "generator": "Ninja",
+      "configurationType": "Release",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "variables": [
+        {
+          "name": "FE_ENABLE_VULKAN",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_DX12",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_OPENGL",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_BUILD_SANDBOX",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_BUILD_TESTS",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_CLANG_TIDY",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_CLANG_FORMAT",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_ASAN",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_UBSAN",
+          "value": "OFF",
+          "type": "BOOL"
+        }
+      ],
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": ""
+    },
+    {
+      "name": "Linux-x64-Debug-GCC",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "linux_x64" ],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "wslPath": "${defaultWSLPath}",
+      "addressSanitizerRuntimeFlags": "detect_leaks=0",
+      "addressSanitizerEnabled": true,
+      "variables": [
+        {
+          "name": "FE_ENABLE_VULKAN",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_DX12",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_OPENGL",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_BUILD_SANDBOX",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_BUILD_TESTS",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_CLANG_TIDY",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_CLANG_FORMAT",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_ASAN",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_UBSAN",
+          "value": "ON",
+          "type": "BOOL"
+        }
+      ],
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": ""
+    },
+    {
+      "name": "Linux-x64-Release-GCC",
+      "generator": "Ninja",
+      "configurationType": "Release",
+      "inheritEnvironments": [ "linux_x64" ],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "wslPath": "${defaultWSLPath}",
+      "variables": [
+        {
+          "name": "FE_ENABLE_VULKAN",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_DX12",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_OPENGL",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_BUILD_SANDBOX",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_BUILD_TESTS",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_CLANG_TIDY",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_CLANG_FORMAT",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_ASAN",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_UBSAN",
+          "value": "OFF",
+          "type": "BOOL"
+        }
+      ],
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": ""
+    },
+    {
+      "name": "Linux-x64-Debug-Clang",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "linux_clang_x64" ],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "wslPath": "${defaultWSLPath}",
+      "addressSanitizerRuntimeFlags": "detect_leaks=0",
+      "variables": [
+        {
+          "name": "FE_ENABLE_VULKAN",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_DX12",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_OPENGL",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_BUILD_SANDBOX",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_BUILD_TESTS",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_CLANG_TIDY",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_CLANG_FORMAT",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_ASAN",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_UBSAN",
+          "value": "ON",
+          "type": "BOOL"
+        }
+      ],
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "addressSanitizerEnabled": true
+    },
+    {
+      "name": "Linux-x64-Release-Clang",
+      "generator": "Ninja",
+      "configurationType": "Release",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "inheritEnvironments": [ "linux_clang_x64" ],
+      "wslPath": "${defaultWSLPath}",
+      "variables": [
+        {
+          "name": "FE_ENABLE_VULKAN",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_DX12",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_OPENGL",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_BUILD_SANDBOX",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_BUILD_TESTS",
+          "value": "ON",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_CLANG_TIDY",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_CLANG_FORMAT",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_ASAN",
+          "value": "OFF",
+          "type": "BOOL"
+        },
+        {
+          "name": "FE_ENABLE_UBSAN",
+          "value": "OFF",
+          "type": "BOOL"
+        }
+      ],
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": ""
+    }
+  ]
+}
