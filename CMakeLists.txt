@@ -53,7 +53,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 # Sanitizers
 # ==============================================================================
 include(Sanitizers) # ASan, LSan, UBSan
-fe_apply_sanitizers()
 
 # ==============================================================================
 # Third Party
