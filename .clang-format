@@ -1,0 +1,507 @@
+# =============================================================================
+# .clang-format — Fire Engine
+# Full configuration of the clang-format automatic formatter.
+# Official documentation: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+#
+# Regenerate from a base style:
+#   clang-format -style=llvm -dump-config > .clang-format
+#
+# Apply manually  : clang-format -i file.cpp
+# Check only      : clang-format --dry-run --Werror file.cpp
+# =============================================================================
+
+Language:        Cpp
+Standard:        c++17
+BasedOnStyle:    LLVM
+
+# ==============================================================================
+# INDENTATION
+# ==============================================================================
+
+IndentWidth:              4
+TabWidth:                 4
+UseTab:                   ForIndentation   # Never | ForIndentation | ForContinuationAndIndentation | AlignWithSpaces | Always
+ContinuationIndentWidth:  4
+IndentCaseLabels:         true    # Indents "case" labels under "switch"
+IndentCaseBlocks:         false
+IndentGotoLabels:         true
+IndentPPDirectives:       AfterHash        # None | AfterHash | BeforeHash
+IndentExternBlock:        AfterExternBlock # AfterExternKeyword | Indent | NoIndent
+IndentRequiresClause:     false
+IndentWrappedFunctionNames: false
+LambdaBodyIndentation:    Signature        # Signature | OuterScope
+ConstructorInitializerIndentWidth: 4
+AccessModifierOffset: 0
+
+# ==============================================================================
+# LINE LENGTH
+# ==============================================================================
+
+ColumnLimit: 120   # 0 = disabled
+
+# ==============================================================================
+# BRACES (Allman style — every brace on its own line)
+# ==============================================================================
+
+BreakBeforeBraces: Allman
+# Possible values:
+#   Attach      — brace attached to the previous line (K&R style)
+#   Linux       — like Attach but brace on new line for functions
+#   Mozilla     — like Attach but brace on new line for classes/functions
+#   Stroustrup  — like Attach but "else" on new line
+#   Allman      — all braces on their own line
+#   Whitesmiths — indented braces
+#   GNU         — braces on new line, indented by 2 spaces
+#   Custom      — use BraceWrapping below for fine-grained control
+
+# Fine-grained brace control — only used if BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel:        false
+  AfterClass:            true
+  AfterControlStatement: Always  # Never | MultiLine | Always
+  AfterEnum:             true
+  AfterFunction:         true
+  AfterNamespace:        true
+  AfterObjCDeclaration:  false
+  AfterStruct:           true
+  AfterUnion:            true
+  AfterExternBlock:      true
+  BeforeCatch:           false
+  BeforeElse:            false
+  BeforeLambdaBody:      false
+  BeforeWhile:           false
+  IndentBraces:          false
+  SplitEmptyFunction:    false
+  SplitEmptyRecord:      false
+  SplitEmptyNamespace:   false
+
+# ==============================================================================
+# SPACES
+# ==============================================================================
+
+SpaceBeforeParens: ControlStatements
+# Possible values:
+#   Never                                  — never a space before '('
+#   ControlStatements                      — space before '(' of if/for/while (but not foo())
+#   ControlStatementsExceptControlMacros   — like above but not macros
+#   NonEmptyParentheses                    — space if '(' is not followed by ')'
+#   Always                                 — always a space before '('
+#   Custom                                 — use SpaceBeforeParensOptions
+
+SpaceBeforeParensOptions:
+  AfterControlStatements:       true
+  AfterForeachMacros:           true
+  AfterFunctionDeclarationName: false
+  AfterFunctionDefinitionName:  false
+  AfterIfMacros:                true
+  AfterOverloadedOperator:      false
+  AfterRequiresInClause:        false
+  AfterRequiresInExpression:    false
+  BeforeNonEmptyParentheses:    false
+
+SpaceInEmptyParentheses:        false
+SpaceInEmptyBlock:              false
+SpaceAfterCStyleCast:           false
+SpaceAfterLogicalNot:           false
+SpaceAfterTemplateKeyword:      true
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCaseColon:           false
+SpaceBeforeCpp11BracedList:     false
+SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon:    true
+SpaceBeforeJsonColon:           false
+SpaceBeforeSquareBrackets:      false
+SpacesInAngles:                 Never  # Never | Always | Leave
+SpacesInSquareBrackets:         false
+SpacesInParens:                 Never  # Never | Always
+SpacesInParensOptions:
+  InConditionalStatements: false
+  InCStyleCasts:           false
+  InEmptyParentheses:      false
+  Other:                   false
+SpacesInContainerLiterals:      false
+SpacesInLineCommentPrefix:
+  Minimum: 1
+  Maximum: -1                          # -1 = unlimited
+SpaceAroundPointerQualifiers: Default  # Default | Before | After | Both
+
+# ==============================================================================
+# ALIGNMENT
+# ==============================================================================
+
+AlignAfterOpenBracket: true    # true (Align) | false (DontAlign)
+
+AlignArrayOfStructures: Right  # None | Left | Right
+
+AlignConsecutiveAssignments:
+  Enabled:          true        # Aligns consecutive '='
+  AcrossEmptyLines: false
+  AcrossComments:   false
+  AlignCompound:    true        # Also aligns compound operators (+=, -=, etc.)
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:     false       # Left-pad short operators
+
+AlignConsecutiveBitFields:
+  Enabled:          false
+  AcrossEmptyLines: false
+  AcrossComments:   false
+  AlignCompound:    false
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:     false
+
+AlignConsecutiveDeclarations:
+  Enabled:          false
+  AcrossEmptyLines: false
+  AcrossComments:   false
+  AlignCompound:    false
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:     false
+
+AlignConsecutiveMacros:
+  Enabled:          false
+  AcrossEmptyLines: false
+  AcrossComments:   false
+  AlignCompound:    false
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:     false
+
+AlignConsecutiveShortCaseStatements:
+  Enabled:          false
+  AcrossEmptyLines: false
+  AcrossComments:   false
+  AlignCaseArrows:  false
+  AlignCaseColons:  false
+
+# TableGen options (for LLVM .td files — not relevant for C++)
+AlignConsecutiveTableGenBreakingDAGArgColons:
+  Enabled:          false
+  AcrossEmptyLines: false
+  AcrossComments:   false
+  AlignCompound:    false
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:     false
+
+AlignConsecutiveTableGenCondOperatorColons:
+  Enabled:          false
+  AcrossEmptyLines: false
+  AcrossComments:   false
+  AlignCompound:    false
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:     false
+
+AlignConsecutiveTableGenDefinitionColons:
+  Enabled:          false
+  AcrossEmptyLines: false
+  AcrossComments:   false
+  AlignCompound:    false
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:     false
+
+AlignEscapedNewlines: LeftWithLastLine
+# DontAlign | Left | LeftWithLastLine | Right
+# Aligns backslashes in multi-line macros
+
+AlignOperands: Align
+# DontAlign | Align | AlignAfterOperator
+# Aligns operands of binary and ternary expressions
+
+AlignTrailingComments:
+  Kind:           Always   # Leave | Always | Never
+  OverEmptyLines: 0
+  AlignPPAndNotPP: true
+
+# ==============================================================================
+# SHORT CONSTRUCTS ON A SINGLE LINE
+# ==============================================================================
+
+AllowShortBlocksOnASingleLine:            Empty   # Never | Empty | Always
+AllowShortCaseExpressionOnASingleLine:    true    # Merges short case (C++17 switch expressions)
+AllowShortCaseLabelsOnASingleLine:        false
+AllowShortCompoundRequirementOnASingleLine: true
+AllowShortEnumsOnASingleLine:             false
+AllowShortFunctionsOnASingleLine:         Empty   # None | InlineOnly | Empty | Inline | All
+AllowShortIfStatementsOnASingleLine:      Never   # Never | WithoutElse | OnlyFirstIf | AllIfsAndElse
+AllowShortLambdasOnASingleLine:           Inline  # None | Empty | Inline | All
+AllowShortLoopsOnASingleLine:             false
+AllowShortNamespacesOnASingleLine:        false   # clang-format 20+
+
+# ==============================================================================
+# FUNCTION PARAMETERS — BIN PACKING
+# ==============================================================================
+
+BinPackArguments:  true
+BinPackParameters: BinPack
+# BinPack | OnePerLine | AlwaysOnePerLine
+
+AllowAllArgumentsOnNextLine:               false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowBreakBeforeNoexceptSpecifier:         Never  # Never | OnlyWithParen | Always
+
+# ==============================================================================
+# LINE BREAKS — BINARY AND TERNARY OPERATORS
+# ==============================================================================
+
+BreakBeforeBinaryOperators: None
+# None           — operators stay at end of line
+# NonAssignment  — non-assignment operators move to the next line
+# All            — all operators move to the next line
+
+BreakBeforeTernaryOperators:         true
+BreakAdjacentStringLiterals:         true  # clang-format 18+
+BreakStringLiterals:                 true
+AlwaysBreakBeforeMultilineStrings:   false
+
+# ==============================================================================
+# LINE BREAKS — FUNCTIONS AND RETURN TYPES
+# ==============================================================================
+
+BreakAfterReturnType: Automatic
+# None (deprecated) | Automatic | ExceptShortType | All | TopLevel | AllDefinitions | TopLevelDefinitions
+# Automatic: breaks according to PenaltyReturnTypeOnItsOwnLine
+
+BreakAfterAttributes: Leave  # Always | Leave | Never — break after C++11 [[...]] attributes
+
+# ==============================================================================
+# LINE BREAKS — TEMPLATES AND CONCEPTS
+# ==============================================================================
+
+BreakTemplateDeclarations: Yes
+# Leave | No | MultiLine | Yes
+# Yes       — always break after "template <...>"
+# No        — never break
+# MultiLine — only if the template declaration spans multiple lines
+
+RequiresClausePosition: OwnLine
+# OwnLine | OwnLineWithBrace | WithPreceding | WithFollowing | SingleLine
+
+RequiresExpressionIndentation: OuterScope
+# OuterScope | Keyword
+
+BreakBeforeConceptDeclarations: Always
+# Never | Allowed | Always
+
+# ==============================================================================
+# LINE BREAKS — CONSTRUCTORS AND INHERITANCE
+# ==============================================================================
+
+BreakConstructorInitializers: BeforeColon
+# BeforeColon | BeforeComma | AfterColon
+
+BreakInheritanceList: BeforeColon
+# BeforeColon | BeforeComma | AfterColon | AfterComma
+
+PackConstructorInitializers: NextLine
+# Never | BinPack | CurrentLine | NextLine | NextLineOnly
+
+# ==============================================================================
+# LINE BREAKS — PARENTHESES (clang-format 22+)
+# ==============================================================================
+
+BreakAfterOpenBracketBracedList: false
+BreakAfterOpenBracketFunction:   false
+BreakAfterOpenBracketIf:         false
+BreakAfterOpenBracketLoop:       false
+BreakAfterOpenBracketSwitch:     false
+
+BreakBeforeCloseBracketBracedList: false
+BreakBeforeCloseBracketFunction:   false
+BreakBeforeCloseBracketIf:         false
+
+# ==============================================================================
+# POINTERS AND REFERENCES
+# ==============================================================================
+
+PointerAlignment:       Left    # Left | Right | Middle — align '*' with the type: int* p
+ReferenceAlignment:     Left    # Left | Right | Middle | Pointer
+DerivePointerAlignment: false   # If true, auto-detect preferred alignment from the file
+
+# ==============================================================================
+# NAMESPACES
+# ==============================================================================
+
+NamespaceIndentation:  None    # None | Inner | All
+CompactNamespaces:     false   # Merge nested namespaces: namespace a::b::c {}
+FixNamespaceComments:  true    # Adds/fixes "// namespace fe" at end of namespace block
+ShortNamespaceLines:   1       # Namespaces of N lines or fewer do not receive a comment
+
+# ==============================================================================
+# INCLUDES
+# ==============================================================================
+
+SortIncludes: CaseInsensitive
+# Never | CaseSensitive | CaseInsensitive
+
+IncludeBlocks: Regroup
+# Preserve — keep existing blocks as-is
+# Merge    — merge all includes into one sorted block
+# Regroup  — regroup includes according to IncludeCategories
+
+IncludeCategories:
+  # Group 1: own header (quoted, same directory)
+  - Regex:     '^"[^/]+'
+    Priority:  1
+    SortPriority: 0
+    CaseSensitive: false
+  # Group 2: project engine/ headers
+  - Regex:     '^"(core|platform|renderer|input|audio|physics)/'
+    Priority:  2
+    SortPriority: 0
+    CaseSensitive: false
+  # Group 3: third-party headers
+  - Regex:     '^"third_party/'
+    Priority:  3
+    SortPriority: 0
+    CaseSensitive: false
+  # Group 4: system headers (<...>)
+  - Regex:     '^<'
+    Priority:  4
+    SortPriority: 0
+    CaseSensitive: false
+
+IncludeIsMainRegex:       "(Test)?$"
+IncludeIsMainSourceRegex: ""
+# Regex to identify the "main" header of a .cpp file
+
+MainIncludeChar: Quote
+# Quote | AngleBracket | Any
+
+# ==============================================================================
+# EMPTY LINES
+# ==============================================================================
+
+MaxEmptyLinesToKeep:      1
+KeepEmptyLines:
+  AtEndOfFile:        false
+  AtStartOfBlock:     false
+  AtStartOfFile:      false
+EmptyLineAfterAccessModifier:  Never        # Never | Leave | Always
+EmptyLineBeforeAccessModifier: LogicalBlock
+# Never | Leave | LogicalBlock | Always
+# LogicalBlock: empty line before public: only if the preceding block is non-empty
+
+SeparateDefinitionBlocks: Leave
+# Leave | Always | Never
+
+# ==============================================================================
+# COMMENTS
+# ==============================================================================
+
+ReflowComments:   true   # Reflows long comments that exceed the column limit
+CommentPragmas:   '^ IWYU pragma:'  # Regex for comments that should not be reflowed
+OneLineFormatOffRegex: ''           # Regex: matching lines disable formatting for that line
+
+# ==============================================================================
+# MACROS
+# ==============================================================================
+
+ForEachMacros:
+  - foreach
+  - Q_FOREACH
+  - BOOST_FOREACH
+
+StatementMacros:
+  - Q_UNUSED
+  - QT_REQUIRE_VERSION
+
+WhitespaceSensitiveMacros:
+  - BOOST_PP_STRINGIZE
+  - PP_STRINGIZE
+  - STRINGIZE
+
+AttributeMacros:
+  - __capability
+  - __output
+  - __unused
+
+# ==============================================================================
+# PENALTIES (influence line-break decisions)
+# Higher value = clang-format avoids this break more strongly.
+# ==============================================================================
+
+PenaltyBreakAssignment:               2
+PenaltyBreakBeforeFirstCallParameter: 19
+PenaltyBreakComment:                  300
+PenaltyBreakFirstLessLess:            120
+PenaltyBreakOpenParenthesis:          0
+PenaltyBreakScopeResolution:          500
+PenaltyBreakString:                   1000
+PenaltyBreakTemplateDeclaration:      10
+PenaltyExcessCharacter:               1000000  # Per character beyond ColumnLimit
+PenaltyIndentedWhitespace:            0
+PenaltyReturnTypeOnItsOwnLine:        60
+
+# ==============================================================================
+# C++11 BRACED LISTS
+# ==============================================================================
+
+Cpp11BracedListStyle:         true
+BracedInitializerIndentWidth: 4   # clang-format 17+ (-1 = use ContinuationIndentWidth)
+
+# ==============================================================================
+# MODERN C++ FEATURES
+# ==============================================================================
+
+InsertBraces:         false   # Insert missing braces around if/for/while bodies (clang-format 15+)
+RemoveBracesLLVM:     false   # Remove redundant braces (LLVM style) — EXPERIMENTAL (clang-format 17+)
+RemoveParentheses:    Leave   # Leave | MultipleParentheses | ReturnStatement (clang-format 17+)
+RemoveSemicolon:      false   # Remove redundant ';' after '}' (clang-format 16+)
+
+InsertNewlineAtEOF:   true    # Insert a newline at end of file if missing (clang-format 16+)
+InsertTrailingCommas: None    # None | Wrapped
+
+SortUsingDeclarations: LexicographicNumeric
+# No | LexicographicNumeric | Lexicographic
+
+IntegerLiteralSeparator:
+  Binary:          0   # ' separator for binary literals (0 = disabled, -1 = remove)
+  BinaryMinDigits: 0
+  Decimal:         0
+  DecimalMinDigits: 0
+  Hex:             0
+  HexMinDigits:    0
+
+# ==============================================================================
+# CONST QUALIFIER PLACEMENT
+# ==============================================================================
+
+QualifierAlignment: Leave
+# Leave | Left | Right | Custom (clang-format 14+)
+
+# QualifierOrder: [inline, static, constexpr, const, volatile, type]
+# Used when QualifierAlignment: Custom
+
+# ==============================================================================
+# OPERATORS AND SEPARATORS
+# ==============================================================================
+
+BitFieldColonSpacing: Both
+# Both | None | Before | After
+
+# ==============================================================================
+# LINE ENDINGS
+# ==============================================================================
+
+DeriveLineEnding: true   # Auto-detect \n or \r\n
+UseCRLF: false           # Fallback if DeriveLineEnding finds nothing
+
+LineEnding: DeriveLF
+# LF | CRLF | DeriveLF | DeriveCRLF (clang-format 16+)
+
+# ==============================================================================
+# MISCELLANEOUS
+# ==============================================================================
+
+DisableFormat: false
+
+SkipMacroDefinitionBody: false  # Do not format macro bodies (clang-format 18+)
+
+BinPackLongBracedList: false
+# If true, applies bin-packing for braced lists with 20+ elements
+# even when BinPackArguments is false (clang-format 21+)
