@@ -1,0 +1,171 @@
+# =============================================================================
+# .clang-tidy — Fire Engine
+# clang-tidy linter configuration adapted to the project conventions.
+# Documentation: https://clang.llvm.org/extra/clang-tidy/chacks/list.html
+# =============================================================================
+
+# ------------------------------------------------------------------------------
+# Enabled checks
+# Start from zero (*) then enable only what we need.
+# ------------------------------------------------------------------------------
+Checks: >
+  # Disable all checks by default
+  -*,
+
+  # --- Static Analyzer : core (C++ critical bugs) ---
+  clang-analyzer-core.BitwiseShift,
+  clang-analyzer-core.CallAndMessage,
+  clang-analyzer-core.DivideZero,
+  clang-analyzer-core.NullDereference,
+  clang-analyzer-core.StackAddressEscape,
+  clang-analyzer-core.uninitialized.Assign,
+  clang-analyzer-core.uninitialized.Branch,
+  clang-analyzer-core.uninitialized.UndefReturn,
+  clang-analyzer-core.uninitialized.NewArraySize,
+
+  # --- Static Analyzer : cplusplus ---
+  clang-analyzer-cplusplus.ArrayDelete,
+  clang-analyzer-cplusplus.InnerPointer,
+  clang-analyzer-cplusplus.Move,
+  clang-analyzer-cplusplus.NewDelete,
+  clang-analyzer-cplusplus.NewDeleteLeaks,
+  clang-analyzer-cplusplus.PlacementNew,
+  clang-analyzer-cplusplus.SelfAssignment,
+  clang-analyzer-cplusplus.StringChecker,
+  clang-analyzer-cplusplus.PureVirtualCall,
+
+  # --- Static Analyzer : deadcode ---
+  clang-analyzer-deadcode.DeadStores,
+
+  # --- Static Analyzer : optin ---
+  clang-analyzer-optin.core.EnumCastOutOfRange,
+  clang-analyzer-optin.cplusplus.UninitializedObject,
+  clang-analyzer-optin.cplusplus.VirtualCall,
+  clang-analyzer-optin.performance.Padding,
+  clang-analyzer-optin.portability.UnixAPI,
+
+  # --- Readability ---
+  readability-identifier-naming,
+  readability-braces-around-statements,
+  readability-make-member-function-const,
+  readability-const-return-type,
+  readability-redundant-member-init,
+  readability-redundant-smartptr-get,
+  readability-uppercase-literal-suffix,
+  readability-avoid-const-params-in-decls,
+
+  # --- Modern C++ ---
+  modernize-use-nullptr,
+  modernize-use-override,
+  modernize-use-default-member-init,
+  modernize-use-equals-default,
+  modernize-use-equals-delete,
+  modernize-redundant-void-arg,
+  modernize-loop-convert,
+
+  # --- Best practices (C++ Core Guidelines) ---
+  cppcoreguidelines-pro-type-member-init,
+  cppcoreguidelines-pro-type-static-cast-downcast,
+  cppcoreguidelines-slicing,
+  cppcoreguidelines-prefer-member-initializer,
+
+  # --- Performance ---
+  performance-unnecessary-copy-initialization,
+  performance-move-const-arg,
+  performance-noexcept-move-constructor,
+
+  # --- Potential bugs ---
+  bugprone-use-after-move,
+  bugprone-undefined-memory-manipulation,
+  bugprone-unhandled-self-assignment,
+  bugprone-incorrect-roundings,
+  bugprone-integer-division,
+  bugprone-macro-parentheses,
+  bugprone-suspicious-memset-usage,
+
+  # --- Includes ---
+  misc-include-cleaner,
+  misc-unused-parameters,
+  misc-unused-using-decls
+
+# ------------------------------------------------------------------------------
+# Treat warnings as errors
+# ------------------------------------------------------------------------------
+# WarningsAsErrors: "*"
+
+# ------------------------------------------------------------------------------
+# Headers to analyze
+# ------------------------------------------------------------------------------
+HeaderFilterRegex: "(engine|sandbox|tests)/.*\\.h$"
+
+# ------------------------------------------------------------------------------
+# Check options
+# Detailed configuration for each enabled check above.
+# ------------------------------------------------------------------------------
+CheckOptions:
+
+  # ----------------------------------------------------------------------------
+  # readability-identifier-naming
+  # Enforces the naming conventions defined in CODING_STANDARDS.md
+  # ----------------------------------------------------------------------------
+
+  # Classes, structs, enums → PascalCase
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
+
+  # Enum values → PascalCase
+  - key: readability-identifier-naming.EnumConstantCase
+    value: CamelCase
+
+  # Functions and methods → PascalCase
+  - key: readability-identifier-naming.FunctionCase
+    value: CamelCase
+  - key: readability-identifier-naming.MethodCase
+    value: CamelCase
+
+  # Local variables and parameters → camelCase
+  - key: readability-identifier-naming.LocalVariableCase
+    value: camelBack
+  - key: readability-identifier-naming.ParameterCase
+    value: camelBack
+
+  # Class members → camelCase with "m_" prefix
+  - key: readability-identifier-naming.MemberCase
+    value: camelBack
+  - key: readability-identifier-naming.MemberPrefix
+    value: m_
+
+  # Static members → camelCase with "s_" prefix
+  - key: readability-identifier-naming.StaticMemberCase
+    value: camelBack
+  - key: readability-identifier-naming.StaticMemberPrefix
+    value: s_
+
+  # Global constants → SCREAMING_SNAKE_CASE
+  - key: readability-identifier-naming.ConstexprVariableCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: UPPER_CASE
+
+  # Macros → SCREAMING_SNAKE_CASE (convention, clang-tidy does not check the FE_ prefix)
+  - key: readability-identifier-naming.MacroDefinitionCase
+    value: UPPER_CASE
+
+  # Namespaces → lowercase
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case
+
+  # Template parameters → PascalCase
+  - key: readability-identifier-naming.TemplateParameterCase
+    value: CamelCase
+
+  # ----------------------------------------------------------------------------
+  # modernize-use-default-member-init
+  # Prefer initialization at the declaration site rather than in the constructor
+  # ----------------------------------------------------------------------------
+  - key: modernize-use-default-member-init.UseAssignment
+    value: true
