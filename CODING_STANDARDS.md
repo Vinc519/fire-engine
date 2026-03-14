@@ -1,31 +1,31 @@
 # Fire Engine — Coding Standards
 
-Ce document définit les conventions de code du projet.
-Elles doivent être respectées dans **tous** les fichiers sans exception.
-L'objectif est qu'un fichier soit immédiatement lisible sans avoir à deviner
-les intentions de son auteur.
+This document defines the coding conventions for the project.
+They must be followed in **all** files without exception.
+The goal is that any file should be immediately readable without having to guess
+the author's intent.
 
 ---
 
-## 1. Nommage
+## 1. Naming
 
 ### Types (classes, structs, enums)
 ```cpp
-// PascalCase — toujours
+// PascalCase — always
 class RenderDevice { };
 struct VertexBuffer { };
 enum class ShaderStage { };
 ```
 
-### Fonctions et méthodes
+### Functions and methods
 ```cpp
-// PascalCase — toujours
+// PascalCase — always
 void Initialize();
 bool IsValid() const;
 RenderDevice* GetDevice();
 ```
 
-### Variables locales et paramètres
+### Local variables and parameters
 ```cpp
 // camelCase
 int frameCount = 0;
@@ -33,31 +33,31 @@ float deltaTime = 0.0f;
 void Submit(CommandBuffer* commandBuffer);
 ```
 
-### Membres de classe
+### Class members
 ```cpp
-// camelCase avec préfixe "m_"
+// camelCase with "m_" prefix
 class AudioSource {
-    float    m_volume   = 1.0f;
-    bool     m_isPlaying = false;
-    AudioClip* m_clip   = nullptr;
+    float      m_volume    = 1.0f;
+    bool       m_isPlaying = false;
+    AudioClip* m_clip      = nullptr;
 };
 ```
 
-### Membres statiques de classe
+### Static class members
 ```cpp
-// camelCase avec préfixe "s_"
+// camelCase with "s_" prefix
 class Logger {
     static Logger* s_instance;
 };
 ```
 
-### Constantes et valeurs d'enum
+### Constants and enum values
 ```cpp
-// SCREAMING_SNAKE_CASE pour les constantes globales
+// SCREAMING_SNAKE_CASE for global constants
 constexpr uint32_t MAX_FRAMES_IN_FLIGHT = 2;
 constexpr float    PI = 3.14159265358979f;
 
-// PascalCase pour les valeurs d'enum class
+// PascalCase for enum class values
 enum class ShaderStage {
     Vertex,
     Fragment,
@@ -67,15 +67,15 @@ enum class ShaderStage {
 
 ### Macros
 ```cpp
-// SCREAMING_SNAKE_CASE avec préfixe FE_
+// SCREAMING_SNAKE_CASE with FE_ prefix
 #define FE_ASSERT(condition, message)
 #define FE_LOG_ERROR(message)
 #define FE_UNUSED(x) (void)(x)
 ```
 
-### Fichiers
+### Files
 ```cpp
-// PascalCase, correspondant exactement au nom de la classe principale
+// PascalCase, matching exactly the name of the main class
 RenderDevice.h
 RenderDevice.cpp
 VulkanSwapChain.h
@@ -84,13 +84,13 @@ VulkanSwapChain.cpp
 
 ---
 
-## 2. Organisation des fichiers
+## 2. File organization
 
 ### Header (.h)
-Un header ne doit contenir que :
-- La déclaration de la classe / struct / enum.
-- Les includes **strictement nécessaires** (préférer les forward declarations).
-- Pas d'implémentation (sauf templates et inline justifiés).
+A header must only contain:
+- The declaration of the class / struct / enum.
+- **Strictly necessary** includes (prefer forward declarations).
+- No implementation (except justified templates and inlines).
 
 ```cpp
 // RenderDevice.h
@@ -98,7 +98,7 @@ Un header ne doit contenir que :
 
 #include <cstdint>
 
-// Forward declaration — ne pas inclure CommandBuffer.h si on utilise juste un pointeur
+// Forward declaration — do not include CommandBuffer.h if only a pointer is used
 class CommandBuffer;
 class Texture;
 
@@ -124,128 +124,129 @@ private:
 ```cpp
 // RenderDevice.cpp
 
-// 1. Header correspondant EN PREMIER
+// 1. Corresponding header FIRST
 #include "renderer/common/RenderDevice.h"
 
-// 2. Headers du projet (par ordre alphabétique dans chaque groupe)
+// 2. Project headers (alphabetical order within each group)
 #include "core/debug/Logger.h"
 #include "core/memory/Allocator.h"
 
-// 3. Headers tiers
-// (rien ici dans cet exemple)
+// 3. Third-party headers
+// (none in this example)
 
-// 4. Headers système
+// 4. System headers
 #include <cstring>
 
 namespace fe {
 
-// ... implémentation
+// ... implementation
 
 } // namespace fe
 ```
 
-### Ordre des includes (toujours respecter)
-1. Header propre au fichier
-2. Headers `engine/` du projet
-3. Headers `third_party/`
-4. Headers système (`<cstdint>`, `<vector>`, etc.)
+### Include order (always respect)
+1. Own header
+2. Project `engine/` headers
+3. `third_party/` headers
+4. System headers (`<cstdint>`, `<vector>`, etc.)
 
 ---
 
 ## 3. Namespaces
 
-Tout le code du moteur vit dans le namespace `fe` (Fire Engine).
-Les backends spécifiques ont leur propre sous-namespace.
+All engine code lives in the `fe` namespace (Fire Engine).
+Backend-specific code has its own sub-namespace.
 
 ```cpp
-namespace fe {          // Code commun du moteur
-namespace fe::vk {      // Backend Vulkan
-namespace fe::dx12 {    // Backend DirectX 12
-namespace fe::gl {      // Backend OpenGL
+namespace fe {          // Common engine code
+namespace fe::vk {      // Vulkan backend
+namespace fe::dx12 {    // DirectX 12 backend
+namespace fe::gl {      // OpenGL backend
 ```
 
-Ne jamais écrire `using namespace fe;` dans un header.
-Dans un `.cpp`, c'est acceptable mais non obligatoire.
+Never write `using namespace fe;` in a header.
+In a `.cpp` file it is acceptable but not required.
 
 ---
 
 ## 4. Classes
 
-### Ordre des membres (toujours respecter)
+### Member order (always respect)
 ```cpp
 class MySystem
 {
 public:
-    // 1. Constructeurs / destructeur
+    // 1. Constructors / destructor
     MySystem();
     ~MySystem();
 
-    // 2. Méthodes publiques
+    // 2. Public methods
     bool Initialize();
     void Shutdown();
     void Update(float deltaTime);
 
-    // 3. Getters / setters publics
+    // 3. Public getters / setters
     float GetVolume() const       { return m_volume; }
     void  SetVolume(float volume) { m_volume = volume; }
 
 protected:
-    // 4. Méthodes protégées
+    // 4. Protected methods
 
 private:
-    // 5. Méthodes privées
+    // 5. Private methods
     void InternalReset();
 
-    // 6. Membres privés (toujours en dernier)
+    // 6. Private members (always last)
     float m_volume   = 1.0f;
     bool  m_isActive = false;
 };
 ```
 
-### Règles générales
-- **Une classe = un fichier** (sauf petites structs utilitaires très liées).
-- Toujours initialiser les membres dans la déclaration (`= 0`, `= nullptr`, `= false`).
-- Préférer `= default` et `= delete` explicites plutôt que de laisser le compilateur décider.
-- Les méthodes `const` sont obligatoires quand elles ne modifient pas l'état.
+### General rules
+- **One class = one file** (except small closely related utility structs).
+- Always initialize members at the declaration site (`= 0`, `= nullptr`, `= false`).
+- Prefer explicit `= default` and `= delete` rather than letting the compiler decide.
+- `const` methods are mandatory when they do not modify state.
 
 ---
 
-## 5. Gestion de la mémoire
+## 5. Memory management
 
-Fire Engine n'utilise **jamais** `new` / `delete` directement dans le code métier.
-Toute allocation passe par les allocateurs de `core/memory/`.
+Fire Engine **never** uses `new` / `delete` directly in business code.
+All allocations go through the allocators in `core/memory/`.
 
 ```cpp
-// ❌ Interdit
+// ❌ Forbidden
 RenderDevice* device = new VulkanDevice();
 
-// ✅ Correct (une fois l'allocateur implémenté)
+// ✅ Correct (once the allocator is implemented)
 RenderDevice* device = FE_NEW(VulkanDevice);
 FE_DELETE(device);
 ```
 
-Les `std::unique_ptr` et `std::shared_ptr` sont tolérés en phase d'initialisation
-mais doivent être évités dans les chemins critiques (boucle de rendu, physique).
+`std::unique_ptr` and `std::shared_ptr` are tolerated during initialization
+but must be avoided in hot paths (render loop, physics).
 
 ---
 
-## 6. Gestion des erreurs
+## 6. Error handling
 
-Fire Engine n'utilise **pas** les exceptions C++ (`-fno-exceptions`).
-Les erreurs sont signalées par valeur de retour ou assertions.
+Fire Engine does **not** use C++ exceptions (`-fno-exceptions`).
+Errors are reported via return values or assertions.
 
 ```cpp
-// Fonctions qui peuvent échouer → retourner bool ou un code d'erreur
+// Functions that can fail → return bool or an error code
 bool RenderDevice::Initialize()
 {
-    if (!CreateSwapChain()) {
+    if (!CreateSwapChain())
+    {
         FE_LOG_ERROR("Failed to create swap chain");
         return false;
     }
     return true;
 }
 
-// Préconditions → assertions (désactivées en release)
+// Preconditions → assertions (disabled in release)
 void Submit(CommandBuffer* commandBuffer)
 {
     FE_ASSERT(commandBuffer != nullptr, "CommandBuffer must not be null");
@@ -255,70 +256,133 @@ void Submit(CommandBuffer* commandBuffer)
 
 ---
 
-## 7. Commentaires
+## 7. Comments
 
-### Quoi commenter
+### What to comment
 ```cpp
-// ✅ Expliquer le POURQUOI, pas le QUOI
-// On utilise un double buffer pour éviter que le CPU attende le GPU
+// ✅ Explain the WHY, not the WHAT
+// Double buffering prevents the CPU from stalling while the GPU is still processing
 uint32_t m_currentFrame = 0;
 
-// ❌ Inutile — le code se lit tout seul
-// Incrémente le compteur de frames
+// ❌ Useless — the code is self-explanatory
+// Increment the frame counter
 m_frameCount++;
 ```
 
-### En-tête de fichier
-Chaque fichier `.h` commence par un bloc de description :
+### File header
+Every `.h` and `.cpp` file starts with a description block:
 
 ```cpp
 // =============================================================================
 // RenderDevice.h
-// Interface abstraite pour un périphérique de rendu.
-// Toute implémentation concrète (Vulkan, DX12, OpenGL) doit hériter de cette
-// classe et implémenter toutes ses méthodes virtuelles.
+// Abstract interface for a rendering device.
+// Every concrete implementation (Vulkan, DX12, OpenGL) must inherit from this
+// class and implement all its pure virtual methods.
 // =============================================================================
 #pragma once
 ```
 
-### TODO et FIXME
+### TODO and FIXME
 ```cpp
-// TODO(nom): description de ce qui reste à faire
-// FIXME(nom): description d'un bug connu
-// HACK(nom): solution temporaire, à nettoyer
-// NOTE: information importante pour le lecteur
+// TODO(name): description of what still needs to be done
+// FIXME(name): description of a known bug
+// HACK(name): temporary workaround, needs to be cleaned up
+// NOTE: important information for the reader
 ```
 
 ---
 
-## 8. Règles diverses
+## 8. Casting
 
-- **Pas de nombres magiques** — toujours nommer les constantes.
-- **Pas de `using namespace std;`** dans les headers.
-- **`#pragma once`** en tête de chaque header (pas de include guards manuels).
-- **Accolades obligatoires** sur tous les blocs `if`, `for`, `while`, même sur une ligne.
-- **Pas de code commenté** — le code mort va dans git, pas dans les fichiers.
-- **Longueur de ligne** — 100 caractères maximum.
+Never use C-style casts. Always use the explicit C++ cast operators so that
+the intent is clear and the compiler can catch mistakes.
 
 ```cpp
-// ❌ Interdit
-if (isReady) DoSomething();
+// ❌ Forbidden — hides the nature of the conversion
+float f = (float)myInt;
 
 // ✅ Correct
-if (isReady) {
+float f = static_cast<float>(myInt);
+```
+
+| Cast | When to use |
+|---|---|
+| `static_cast` | Safe, well-defined conversions (numeric, up/downcast with known type) |
+| `reinterpret_cast` | Low-level reinterpretation of bits (e.g. pointer to integer). Use sparingly. |
+| `const_cast` | Removing `const` only when interfacing with legacy C APIs. Justify with a comment. |
+| `dynamic_cast` | Avoided — RTTI is disabled (`-fno-rtti`). Use virtual dispatch or a custom type system instead. |
+
+---
+
+## 9. Templates
+
+Templates are useful but can harm readability and compilation times if overused.
+
+### Rules
+- Prefer concrete types over templates when the number of instantiations is known and small.
+- Always document template parameters.
+- Use `static_assert` to enforce constraints on template parameters.
+
+```cpp
+// Document the expected interface of T
+template <typename T>
+class ResourcePool
+{
+    static_assert(std::is_trivially_destructible_v<T>,
+        "ResourcePool only supports trivially destructible types.");
+    // ...
+};
+```
+
+### `static_assert`
+Use `static_assert` to catch logic errors at compile time rather than at runtime.
+
+```cpp
+static_assert(sizeof(Vertex) == 32, "Vertex layout has changed — update the pipeline.");
+static_assert(MAX_FRAMES_IN_FLIGHT <= 3, "More than 3 frames in flight is not supported.");
+```
+
+---
+
+## 10. Miscellaneous rules
+
+- **No magic numbers** — always name constants.
+- **No `using namespace std;`** in headers.
+- **`#pragma once`** at the top of every header (no manual include guards).
+- **Braces are mandatory** on all `if`, `for`, `while` blocks, even single-line ones.
+- **No commented-out code** — dead code belongs in git history, not in source files.
+- **Line length** — 120 characters maximum.
+
+```cpp
+// ✅ Allowed — single-line body without else
+if (isReady)
     DoSomething();
+
+// ❌ Forbidden — body on the same line as the condition
+if (isReady) DoSomething();
+
+// ✅ Mandatory braces as soon as there is an else or a nested block
+if (isReady)
+{
+    DoSomething();
+}
+else
+{
+    DoSomethingElse();
 }
 ```
 
 ---
 
-## 9. Checklist avant tout commit
+## 11. Pre-commit checklist
 
-- [ ] Les noms respectent les conventions de ce document
-- [ ] Les includes sont dans le bon ordre
-- [ ] Pas de `new` / `delete` direct dans le code métier
-- [ ] Les méthodes `const` sont marquées `const`
-- [ ] Les préconditions sont protégées par `FE_ASSERT`
-- [ ] Pas de nombres magiques
-- [ ] Les fichiers commencent par leur bloc de description
-- [ ] Le code compile sans warnings (`-Wall -Wextra`)
+- [ ] Names follow the conventions in this document
+- [ ] Includes are in the correct order
+- [ ] No direct `new` / `delete` in business code
+- [ ] `const` methods are marked `const`
+- [ ] Preconditions are guarded by `FE_ASSERT`
+- [ ] No magic numbers
+- [ ] Files start with their description block
+- [ ] No C-style casts
+- [ ] Code compiles without warnings (`-Wall -Wextra`)
+- [ ] No commented-out code left behind
