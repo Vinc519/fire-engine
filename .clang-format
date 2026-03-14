@@ -227,7 +227,7 @@ AllowShortCaseLabelsOnASingleLine:        false
 AllowShortCompoundRequirementOnASingleLine: true
 AllowShortEnumsOnASingleLine:             false
 AllowShortFunctionsOnASingleLine:         Empty   # None | InlineOnly | Empty | Inline | All
-AllowShortIfStatementsOnASingleLine:      Never   # Never | WithoutElse | OnlyFirstIf | AllIfsAndElse
+AllowShortIfStatementsOnASingleLine:      WithoutElse   # Never | WithoutElse | OnlyFirstIf | AllIfsAndElse
 AllowShortLambdasOnASingleLine:           Inline  # None | Empty | Inline | All
 AllowShortLoopsOnASingleLine:             false
 AllowShortNamespacesOnASingleLine:        false   # clang-format 20+

@@ -46,7 +46,6 @@ Checks: >
 
   # --- Readability ---
   readability-identifier-naming,
-  readability-braces-around-statements,
   readability-make-member-function-const,
   readability-const-return-type,
   readability-redundant-member-init,
