@@ -1,0 +1,237 @@
+{
+  "version": 9,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "FE_BUILD_SANDBOX": "ON",
+        "FE_BUILD_TESTS": "ON",
+        "FE_ENABLE_VULKAN": "ON",
+        "FE_ENABLE_DX12": "OFF",
+        "FE_ENABLE_OPENGL": "OFF"
+      }
+    },
+    {
+      "name": "analysis",
+      "displayName": "Static analysis",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "FE_ENABLE_CLANG_TIDY": "OFF",
+        "FE_ENABLE_ASAN": "OFF",
+        "FE_ENABLE_UBSAN": "OFF"
+      }
+    },
+    {
+      "name": "windows-debug",
+      "displayName": "Windows-Debug-x64",
+      "description": "MSVC, ASan, clang-tidy intégré au build",
+      "inherits": "base",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "toolset": "host=x64,target=x64",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "FE_ENABLE_CLANG_TIDY": "ON",
+        "FE_ENABLE_ASAN": "ON",
+        "FE_ENABLE_UBSAN": "OFF"
+      }
+    },
+    {
+      "name": "windows-release",
+      "displayName": "Windows—Release-x64",
+      "description": "MSVC, optimisations, without sanitizers or clang-tidy in the build",
+      "inherits": "base",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "toolset": "host=x64,target=x64",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "FE_ENABLE_CLANG_TIDY": "OFF",
+        "FE_ENABLE_ASAN": "OFF",
+        "FE_ENABLE_UBSAN": "OFF"
+      }
+    },
+    {
+      "name": "wsl-debug-gcc",
+      "displayName": "WSL-Debug-x64 (GCC)",
+      "description": "GCC, ASan + UBSan, clang-tidy integrated into the build",
+      "inherits": "base",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Linux"
+          ],
+          "wslTarget": "Ubuntu"
+        }
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "/usr/bin/gcc",
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+        "FE_ENABLE_CLANG_TIDY": "ON",
+        "FE_ENABLE_ASAN": "ON",
+        "FE_ENABLE_UBSAN": "ON"
+      }
+    },
+    {
+      "name": "wsl-release-gcc",
+      "displayName": "WSL—Release-x64 (GCC)",
+      "inherits": "base",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Linux"
+          ],
+          "wslTarget": "Ubuntu"
+        }
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "/usr/bin/gcc",
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+        "FE_ENABLE_CLANG_TIDY": "OFF",
+        "FE_ENABLE_ASAN": "OFF",
+        "FE_ENABLE_UBSAN": "OFF"
+      }
+    },
+    {
+      "name": "wsl-debug-clang",
+      "displayName": "WSL—Debug-x64 (Clang)",
+      "description": "Clang, ASan + UBSan, clang-tidy integrated into the build",
+      "inherits": "base",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Linux"
+          ],
+          "wslTarget": "Ubuntu"
+        }
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "/usr/bin/clang",
+        "CMAKE_CXX_COMPILER": "/usr/bin/clang++",
+        "FE_ENABLE_CLANG_TIDY": "ON",
+        "FE_ENABLE_ASAN": "ON",
+        "FE_ENABLE_UBSAN": "ON"
+      }
+    },
+    {
+      "name": "wsl-release-clang",
+      "displayName": "WSL—Release-x64 (Clang)",
+      "inherits": "base",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Linux"
+          ],
+          "wslTarget": "Ubuntu"
+        }
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "/usr/bin/clang",
+        "CMAKE_CXX_COMPILER": "/usr/bin/clang++",
+        "FE_ENABLE_CLANG_TIDY": "OFF",
+        "FE_ENABLE_ASAN": "OFF",
+        "FE_ENABLE_UBSAN": "OFF"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "windows-debug",
+      "displayName": "Windows Debug",
+      "configurePreset": "windows-debug"
+    },
+    {
+      "name": "windows-release",
+      "displayName": "Windows Release",
+      "configurePreset": "windows-release"
+    },
+    {
+      "name": "wsl-debug-gcc",
+      "displayName": "WSL Debug (GCC)",
+      "configurePreset": "wsl-debug-gcc"
+    },
+    {
+      "name": "wsl-release-gcc",
+      "displayName": "WSL Release (GCC)",
+      "configurePreset": "wsl-release-gcc"
+    },
+    {
+      "name": "wsl-debug-clang",
+      "displayName": "WSL Debug (Clang)",
+      "configurePreset": "wsl-debug-clang"
+    },
+    {
+      "name": "wsl-release-clang",
+      "displayName": "WSL Release (Clang)",
+      "configurePreset": "wsl-release-clang"
+    },
+    {
+      "name": "tidy",
+      "displayName": "clang-tidy - Analyses",
+      "description": "Launch clang-tidy on every project with the CMake target 'tidy'.",
+      "configurePreset": "analysis",
+      "targets": [
+        "tidy"
+      ]
+    },
+    {
+      "name": "format-apply",
+      "displayName": "clang-format — Apply",
+      "description": "Reformat all source files in place according to .clang-format.",
+      "configurePreset": "analysis",
+      "targets": [
+        "format"
+      ]
+    },
+    {
+      "name": "format-check",
+      "displayName": "clang-format — Verify",
+      "description": "Checks formatting without modifying files. Returns an error if non-compliant.",
+      "configurePreset": "analysis",
+      "targets": [
+        "format-check"
+      ]
+    }
+  ]
+}
