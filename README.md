@@ -47,7 +47,7 @@
 
 ### Prerequisites
 
-- CMake 3.20+
+- CMake 3.25+
 - Vulkan SDK
 - A C++17 compatible compiler (GCC, Clang, MSVC)
 
