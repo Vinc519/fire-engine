@@ -3,7 +3,10 @@
 # A simple executable to test engine features during development.
 # ==============================================================================
 
-add_executable(Sandbox main.cpp)
+file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS "*.c" "*.cpp")
+file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS "*.h" "*.hpp")
+
+add_executable(Sandbox ${SOURCE_FILES} ${HEADER_FILES})
 
 target_link_libraries(Sandbox PRIVATE FireEngine)
 
