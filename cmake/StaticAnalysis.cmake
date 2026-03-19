@@ -50,7 +50,6 @@ if(FE_ENABLE_CLANG_TIDY)
             "${CLANG_TIDY_EXECUTABLE}"
             "--config-file=${CMAKE_SOURCE_DIR}/.clang-tidy"
             # "--warnings-as-errors=*"
-            PARENT_SCOPE
         )
     else()
         message(WARNING
