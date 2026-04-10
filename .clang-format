@@ -81,12 +81,12 @@ BraceWrapping:
 
 SpaceBeforeParens: ControlStatements
 # Possible values:
-#   Never                                  — never a space before '('
-#   ControlStatements                      — space before '(' of if/for/while (but not foo())
-#   ControlStatementsExceptControlMacros   — like above but not macros
-#   NonEmptyParentheses                    — space if '(' is not followed by ')'
-#   Always                                 — always a space before '('
-#   Custom                                 — use SpaceBeforeParensOptions
+#   Never (deprecated, replaced by Custom)  — never a space before '('
+#   ControlStatements                       — space before '(' of if/for/while (but not foo())
+#   ControlStatementsExceptControlMacros    — like above but not macros
+#   NonEmptyParentheses                     — space if '(' is not followed by ')'
+#   Always                                  — always a space before '('
+#   Custom                                  — use SpaceBeforeParensOptions
 
 SpaceBeforeParensOptions:
   AfterControlStatements:       true
@@ -100,7 +100,7 @@ SpaceBeforeParensOptions:
   BeforeNonEmptyParentheses:    false
 
 SpaceInEmptyParentheses:        false
-SpaceInEmptyBlock:              false
+SpaceInEmptyBraces:             false
 SpaceAfterCStyleCast:           false
 SpaceAfterLogicalNot:           false
 SpaceAfterTemplateKeyword:      true
@@ -215,7 +215,7 @@ AlignOperands: Align
 AlignTrailingComments:
   Kind:           Always   # Leave | Always | Never
   OverEmptyLines: 0
-  AlignPPAndNotPP: true
+  #AlignPPAndNotPP: true
 
 # ==============================================================================
 # SHORT CONSTRUCTS ON A SINGLE LINE
@@ -460,12 +460,12 @@ SortUsingDeclarations: LexicographicNumeric
 # No | LexicographicNumeric | Lexicographic
 
 IntegerLiteralSeparator:
-  Binary:          0   # ' separator for binary literals (0 = disabled, -1 = remove)
-  BinaryMinDigits: 0
-  Decimal:         0
-  DecimalMinDigits: 0
-  Hex:             0
-  HexMinDigits:    0
+  Binary:                 0   # ' separator for binary literals (0 = disabled, -1 = remove)
+  BinaryMinDigitsInsert:  0
+  Decimal:                0
+  DecimalMinDigitsInsert: 0
+  Hex:                    0
+  HexMinDigitsInsert:     0
 
 # ==============================================================================
 # CONST QUALIFIER PLACEMENT
@@ -487,9 +487,6 @@ BitFieldColonSpacing: Both
 # ==============================================================================
 # LINE ENDINGS
 # ==============================================================================
-
-DeriveLineEnding: true   # Auto-detect \n or \r\n
-UseCRLF: false           # Fallback if DeriveLineEnding finds nothing
 
 LineEnding: DeriveLF
 # LF | CRLF | DeriveLF | DeriveCRLF (clang-format 16+)
