@@ -54,7 +54,7 @@
 ### Build
 
 ```bash
-git clone https://github.com/your-username/fire-engine.git
+git clone https://github.com/Vinc519/fire-engine.git
 cd fire-engine
 mkdir build && cd build
 cmake ..
