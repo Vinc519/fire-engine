@@ -335,11 +335,11 @@ class ResourcePool
 ```
 
 ### `static_assert`
-Use `static_assert` to catch logic errors at compile time rather than at runtime.
+Use `STATIC_ASSERT` to catch logic errors at compile time rather than at runtime.
 
 ```cpp
-static_assert(sizeof(Vertex) == 32, "Vertex layout has changed — update the pipeline.");
-static_assert(MAX_FRAMES_IN_FLIGHT <= 3, "More than 3 frames in flight is not supported.");
+STATIC_ASSERT(sizeof(Vertex) == 32, "Vertex layout has changed — update the pipeline.");
+STATIC_ASSERT(MAX_FRAMES_IN_FLIGHT <= 3, "More than 3 frames in flight is not supported.");
 ```
 
 ---
