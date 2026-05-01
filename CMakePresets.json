@@ -48,6 +48,12 @@
         "FE_ENABLE_CLANG_TIDY": "ON",
         "FE_ENABLE_ASAN": "ON",
         "FE_ENABLE_UBSAN": "OFF"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "enableClangTidyCodeAnalysis": true,
+          "enableMicrosoftCodeAnalysis": false
+        }
       }
     },
     {
@@ -80,10 +86,10 @@
       },
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {
-          "hostOS": [
-            "Linux"
-          ],
-          "wslTarget": "Ubuntu"
+          "hostOS": [ "Linux" ],
+          "wslTarget": "Ubuntu",
+          "enableClangTidyCodeAnalysis": true,
+          "enableMicrosoftCodeAnalysis": false
         }
       },
       "cacheVariables": {
@@ -106,9 +112,7 @@
       },
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {
-          "hostOS": [
-            "Linux"
-          ],
+          "hostOS": ["Linux"],
           "wslTarget": "Ubuntu"
         }
       },
@@ -133,10 +137,10 @@
       },
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {
-          "hostOS": [
-            "Linux"
-          ],
-          "wslTarget": "Ubuntu"
+          "hostOS": [ "Linux" ],
+          "wslTarget": "Ubuntu",
+          "enableClangTidyCodeAnalysis": true,
+          "enableMicrosoftCodeAnalysis": false
         }
       },
       "cacheVariables": {
@@ -159,9 +163,7 @@
       },
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {
-          "hostOS": [
-            "Linux"
-          ],
+          "hostOS": [ "Linux" ],
           "wslTarget": "Ubuntu"
         }
       },
@@ -211,27 +213,21 @@
       "displayName": "clang-tidy - Analyses",
       "description": "Launch clang-tidy on every project with the CMake target 'tidy'.",
       "configurePreset": "analysis",
-      "targets": [
-        "tidy"
-      ]
+      "targets": [ "tidy" ]
     },
     {
       "name": "format-apply",
       "displayName": "clang-format — Apply",
       "description": "Reformat all source files in place according to .clang-format.",
       "configurePreset": "analysis",
-      "targets": [
-        "format"
-      ]
+      "targets": [ "format" ]
     },
     {
       "name": "format-check",
       "displayName": "clang-format — Verify",
       "description": "Checks formatting without modifying files. Returns an error if non-compliant.",
       "configurePreset": "analysis",
-      "targets": [
-        "format-check"
-      ]
+      "targets": [ "format-check" ]
     }
   ]
 }
