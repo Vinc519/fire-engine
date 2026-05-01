@@ -7,10 +7,9 @@
 file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS "*.c" "*.cpp")
 file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS "*.h" "*.hpp")
 
-# TODO: Change INTERFACE to STATIC once implementation files is added.
-add_library(fe_core INTERFACE ${SOURCE_FILES} ${HEADER_FILES})
+add_library(fe_core STATIC ${SOURCE_FILES} ${HEADER_FILES})
 
-target_include_directories(fe_core INTERFACE
+target_include_directories(fe_core PUBLIC
     ${CMAKE_SOURCE_DIR}/engine
 )
 
@@ -23,7 +22,7 @@ endif()
 
 # Compiler warnings
 if(MSVC)
-    target_compile_options(fe_core INTERFACE /W4) # PRIVATE
+    target_compile_options(fe_core PRIVATE /W4)
 else()
-    target_compile_options(fe_core INTERFACE -Wall -Wextra -Wpedantic) # PRIVATE
+    target_compile_options(fe_core PRIVATE -Wall -Wextra -Wpedantic)
 endif()
