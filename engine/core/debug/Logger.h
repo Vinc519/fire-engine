@@ -26,12 +26,21 @@
 #	define FE_LOG_TRACE_ENABLED 1
 #endif
 
-struct FILE;
 
 namespace fe
 {
 
-enum class LogLevel : u8;
+/// @brief The level of a log.
+enum class LogLevel : u8
+{
+	Fatal,
+	Error,
+	Warning,
+	Info,
+	Debug,
+	Trace,
+};
+
 struct LogEntry;
 
 class Logger

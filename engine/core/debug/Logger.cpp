@@ -23,17 +23,6 @@ namespace fe
 
 constexpr i16 LOG_MESSAGE_MAX_LENGTH = 1024;
 
-/// @brief The level of a log.
-enum class LogLevel : u8
-{
-	Fatal,
-	Error,
-	Warning,
-	Info,
-	Debug,
-	Trace,
-};
-
 /// @brief Structure that represents all the information about a log.
 struct LogEntry
 {
