@@ -1,7 +1,5 @@
 # Build directories
-build/
 out/
-cmake-build-*/
 
 # IDE files
 .vs/
