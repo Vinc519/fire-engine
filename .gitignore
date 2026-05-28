@@ -1,5 +1,6 @@
-# Build directories
+# Build and bin directories
 out/
+bin/
 
 # IDE files
 .vs/
