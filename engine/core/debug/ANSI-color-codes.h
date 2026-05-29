@@ -1,3 +1,5 @@
+#pragma once
+
 // This file was taken from this source:
 // https://gist.github.com/RabaDabaDoba/145049536f815903c79944599c6f952a
 
