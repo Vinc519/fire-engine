@@ -8,7 +8,7 @@ int main()
 	fe::Logger::Init("log.txt");
 
 	printf("Fire Engine - Sandbox\n");
-	FE_LOG_INFO("Print message :%d", 8);
+	FE_LOG_INFO("Print message : %d", 8);
 
 	fe::Logger::Shutdown();
 	return 0;
