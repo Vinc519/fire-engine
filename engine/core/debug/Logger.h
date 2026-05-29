@@ -26,6 +26,11 @@
 #	define FE_LOG_TRACE_ENABLED 1
 #endif
 
+#ifdef FE_PLATFORM_LINUX
+typedef struct _IO_FILE FILE;
+#else
+typedef struct _iobuf FILE;
+#endif
 
 namespace fe
 {
