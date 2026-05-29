@@ -18,12 +18,12 @@ option(FE_ENABLE_CLANG_TIDY "Integrate clang-tidy into every compilation" OFF)
 # Locate Executables
 # ==============================================================================
 find_program(CLANG_TIDY_EXECUTABLE
-    NAMES clang-tidy clang-tidy-18
+    NAMES clang-tidy clang-tidy-23
     DOC   "Path to the clang-tidy executable"
 )
 
 find_program(CLANG_FORMAT_EXECUTABLE
-    NAMES clang-format clang-format-18
+    NAMES clang-format clang-format-23
     DOC   "Path to the clang-format executable"
 )
 
