@@ -17,6 +17,7 @@
 #include <cstdarg>
 #include <cstdio>
 #include <ctime>
+#include <string>
 
 namespace fe
 {
@@ -147,6 +148,8 @@ void Logger::Write(LogEntry &entry)
 {
 	int check = 0;
 	char buffer[LOG_MESSAGE_MAX_LENGTH] = {0};
+
+	entry.file = strstr(entry.file, "fire-engine") + 12;
 
 	FormatMessage(entry, buffer, TRUE);
 	check = fprintf(stderr, "%s", buffer);
