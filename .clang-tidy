@@ -6,7 +6,6 @@
 
 # ------------------------------------------------------------------------------
 # Enabled checks
-# Start from zero (*) then enable only what we need.
 # ------------------------------------------------------------------------------
 Checks: >
   # Disable all checks by default
@@ -96,6 +95,7 @@ Checks: >
 # Headers to analyze
 # ------------------------------------------------------------------------------
 HeaderFilterRegex: "(engine|sandbox|tests)/.*\\.h$"
+SystemHeaders: false
 
 # ------------------------------------------------------------------------------
 # Check options
