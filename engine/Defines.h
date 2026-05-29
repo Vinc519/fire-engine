@@ -10,11 +10,7 @@
 #	error "Fire Engine: unsupported compiler."
 #endif
 
-#if defined(FE_COMPILER_MSVC)
-#	define STATIC_ASSERT static_assert
-#else
-#	define STATIC_ASSERT _Static_assert
-#endif
+#define STATIC_ASSERT static_assert
 
 typedef unsigned char u8;
 typedef unsigned short u16;
