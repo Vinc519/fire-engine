@@ -169,7 +169,7 @@ void Logger::Write(LogEntry &entry)
 void Logger::Output(LogLevel level, const char *file, i32 line, const char *message, ...)
 {
 	LogEntry entry = {
-		.level = level,
+	    .level = level,
 		.file = file,
 		.line = line,
 		.timestamp = time(nullptr),
@@ -180,7 +180,7 @@ void Logger::Output(LogLevel level, const char *file, i32 line, const char *mess
 	va_list args;
 	va_start(args, message);
 	int check = vsnprintf(entry.message, LOG_MESSAGE_MAX_LENGTH, message, args);
-	FE_ASSERT_MSG(check >= 0 && check <= LOG_MESSAGE_MAX_LENGTH,
+	FE_ASSERT_MSG(check >= 0 && check < LOG_MESSAGE_MAX_LENGTH,
 	              "Buffer overflow on entry.message");
 	va_end(args);
 
