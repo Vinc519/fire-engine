@@ -82,20 +82,19 @@ void Logger::Shutdown()
 
 b8 Logger::IsInitialized() { return s_initialized; }
 
-void Logger::FormatMessage(LogEntry &entry, b8 useColor)
+void Logger::FormatMessage(LogEntry &entry, char *buffer, b8 useColor)
 {
 	// Resolve time — use the thread-safe variant on each platform.
 	struct tm timeInfo = {};
 	i32 check = 0;
-	const char *colorBegin = BWHT;
-	const char *label = "Unknown";
+	const char *colorBegin = BWHT, *label = nullptr;
 
+	time_t timestamp = static_cast<time_t>(entry.timestamp);
 #ifdef FE_PLATFORM_WINDOWS
-	check = localtime_s(&timeInfo, &entry.timestamp);
+	FE_ASSERT_MSG(localtime_s(&timeInfo, &timestamp) == 0, "Error while getting time");
 #else
-	check = localtime_r(&entry.timestamp, &timeInfo);
+	FE_ASSERT_MSG(localtime_r(&timestamp, &timeInfo) != nullptr, "Error while getting time");
 #endif
-	FE_ASSERT_MSG(check == 0, "Error while getting time");
 
 	switch (entry.level)
 	{
@@ -130,14 +129,16 @@ void Logger::FormatMessage(LogEntry &entry, b8 useColor)
 	}
 
 	if (useColor)
-		check = snprintf(entry.message, LOG_MESSAGE_MAX_LENGTH,
-		                 "[%02d:%02d:%02d] [%s%-5s%s] %s:%d - %s\n", timeInfo.tm_hour,
+		check = snprintf(buffer, LOG_MESSAGE_MAX_LENGTH,
+		                 "[%02d/%02d/%04d %02d:%02d:%02d] [%s%s%s] %s:%d - %s\n", timeInfo.tm_mday,
+		                 timeInfo.tm_mon + 1, 1900 + timeInfo.tm_year, timeInfo.tm_hour,
 		                 timeInfo.tm_min, timeInfo.tm_sec, colorBegin, label, COLOR_RESET,
 		                 entry.file, entry.line, entry.message);
 	else
-		check = snprintf(entry.message, LOG_MESSAGE_MAX_LENGTH,
-		                 "[%02d:%02d:%02d] [%-5s] %s:%d - %s\n", timeInfo.tm_hour, timeInfo.tm_min,
-		                 timeInfo.tm_sec, label, entry.file, entry.line, entry.message);
+		check = snprintf(
+		    buffer, LOG_MESSAGE_MAX_LENGTH, "[%02d/%02d/%04d %02d:%02d:%02d] [%s] %s:%d - %s\n",
+		    timeInfo.tm_mday, timeInfo.tm_mon + 1, 1900 + timeInfo.tm_year, timeInfo.tm_hour,
+		    timeInfo.tm_min, timeInfo.tm_sec, label, entry.file, entry.line, entry.message);
 	FE_ASSERT_MSG(check >= 0 && check <= LOG_MESSAGE_MAX_LENGTH,
 	              "Buffer overflow on entry.message");
 }
@@ -145,15 +146,17 @@ void Logger::FormatMessage(LogEntry &entry, b8 useColor)
 void Logger::Write(LogEntry &entry)
 {
 	int check = 0;
-	FormatMessage(entry, TRUE);
-	check = fprintf(stderr, "%s", entry.message);
-	FE_ASSERT_MSG(check > 0 && check < LOG_MESSAGE_MAX_LENGTH, "Buffer overflow on entry.message");
+	char buffer[LOG_MESSAGE_MAX_LENGTH] = {0};
+
+	FormatMessage(entry, buffer, TRUE);
+	check = fprintf(stderr, "%s", buffer);
+	FE_ASSERT_MSG(check > 0 && check <= LOG_MESSAGE_MAX_LENGTH, "Buffer overflow on entry.message");
 
 	// Write to file without ANSI codes if a file is open.
 	if (s_file != nullptr)
 	{
-		FormatMessage(entry, FALSE);
-		check = fputs(entry.message, s_file);
+		FormatMessage(entry, buffer, FALSE);
+		check = fputs(buffer, s_file);
 		FE_ASSERT_MSG(check >= 0, "The log message wasn't written in the file");
 		check = fflush(s_file);
 		FE_ASSERT_MSG(check == 0, "Cannot flush the buffer into the file");
