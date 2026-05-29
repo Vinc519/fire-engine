@@ -43,7 +43,7 @@ void Logger::Init(const char *filename)
 	if (filename != nullptr)
 	{
 #ifdef FE_PLATFORM_WINDOWS
-		// fopen_s is the safe MSVC variant.
+		// Safe MSVC variant of fopen.
 		errno_t err = fopen_s(&s_file, filename, "a");
 		if (err != 0 || s_file == nullptr)
 		{
