@@ -74,7 +74,7 @@ class Logger
 	private:
 	    /// @brief Format the message with the fields inside the structure.
 	    /// @param[in] entry The log structure.
-	    static void FormatMessage(LogEntry& entry, b8 useColor);
+	    static void FormatMessage(LogEntry& entry, char* buffer, b8 useColor);
 		
 	    /// @brief Writes a fully formatted entry to stderr and, if specified, to the log file.
 	    /// @param[in] entry The log structure.
