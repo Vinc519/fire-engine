@@ -20,13 +20,13 @@ endif()
 list(APPEND SOURCE_FILES ${PLATFORM_SOURCES})
 
 # TODO: Change INTERFACE to STATIC once implementation files is added.
-add_library(fe_platform INTERFACE ${SOURCE_FILES} ${HEADER_FILES})
+add_library(fe_platform STATIC ${SOURCE_FILES} ${HEADER_FILES})
 
-target_include_directories(fe_platform INTERFACE # PUBLIC
+target_include_directories(fe_platform PUBLIC # PUBLIC
     ${CMAKE_SOURCE_DIR}/engine
 )
 
-target_link_libraries(fe_platform INTERFACE fe_core) # PUBLIC
+target_link_libraries(fe_platform PUBLIC fe_core) # PUBLIC
 
 # Link OS threading libraries
 find_package(Threads REQUIRED)
