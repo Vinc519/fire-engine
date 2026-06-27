@@ -14,7 +14,7 @@ Language:        Cpp
 Standard:        c++20
 BasedOnStyle:    LLVM
 
-AccessModifierOffset: 0
+AccessModifierOffset: -2
 AlignArrayOfStructures: Right
 AlignEscapedNewlines: LeftWithLastLine
 AlignTrailingComments:
@@ -66,3 +66,6 @@ AlignConsecutiveMacros:
     AcrossComments: true
 
 AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: None
+
+PointerAlignment: Left
