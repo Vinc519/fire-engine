@@ -15,7 +15,7 @@
 
 #include "Assert.h"
 
-#define FE_LOG_WARNING_ENABLED 1
+#define FE_LOG_WARN_ENABLED 1
 #define FE_LOG_INFO_ENABLED 1
 
 #ifdef FE_RELEASE
@@ -100,14 +100,14 @@ class Logger
 		fe::Logger::Output(fe::LogLevel::Error, __FILE__, __LINE__, message, ##__VA_ARGS__);\
 	} while (0)
 
-#if FE_LOG_WARNING_ENABLED
-#	define FE_LOG_WARNING(message, ...)																\
+#if FE_LOG_WARN_ENABLED
+#	define FE_LOG_WARN(message, ...)																\
 		do																							\
 		{																							\
 			fe::Logger::Output(fe::LogLevel::Warning, __FILE__, __LINE__, message, ##__VA_ARGS__);  \
 		} while (0)
 #else
-#	define FE_LOG_WARNING(message, ...) do {} while (0)
+#	define FE_LOG_WARN(message, ...) do {} while (0)
 #endif
 
 #if FE_LOG_INFO_ENABLED
