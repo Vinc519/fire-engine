@@ -35,35 +35,35 @@ enum class FileSeekOrigin : u8
 FE_DEFINE_ENUM_FLAGS(FileAccessMode, u8)
 
 
-FileHandle* FileOpen(const char *__restrict name, FileOpenMode openMode, 
+FileHandle* File_Open(const char *__restrict name, FileOpenMode openMode, 
 					 FileAccessMode accessMode);
 
 // Closes an open file handle.
 // Calling File_Close on an already-closed handle is a no-op.
-void FileClose(FileHandle* handle);
+void File_Close(FileHandle* handle);
 
 // Deletes the file at the given path.
 // Returns true on success, false if the file does not exist or cannot be deleted.
-bool FileDelete(const char* path);
+bool File_Delete(const char* path);
 
 // Returns true if a file exists at the given path.
-bool FileExists(const char* path);
+bool File_Exists(const char* path);
 
 // Returns the size of an open file in bytes.
 // Returns 0 if the handle is invalid.
-u64 FileGetSize(FileHandle* handle);
+u64 File_GetSize(FileHandle* handle);
 
 // Writes size bytes from data into the file at the current position.
 // Returns the number of bytes actually written.
-u64 FileWrite(FileHandle *handle, const char *buffer, u64 bufferSize);
+u64 File_Write(FileHandle *handle, const char *buffer, u64 bufferSize);
 
 // Reads up to size bytes from the file into outBuffer.
 // Returns the number of bytes actually read.
-u64 FileRead(FileHandle *handle, char *outBuffer, u64 bufferSize);
+u64 File_Read(FileHandle *handle, char *outBuffer, u64 bufferSize);
 
 // Flushes any OS-buffered writes to disk.
 // Always call this before File_Close() when write correctness matters (e.g. logger).
-void FileFlush(FileHandle* handle);
+void File_Flush(FileHandle* handle);
 
 // Moves the file pointer by offset bytes from origin.
 // Returns the new absolute position in the file.
