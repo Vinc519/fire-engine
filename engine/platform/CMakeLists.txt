@@ -29,5 +29,5 @@ target_include_directories(fe_platform PUBLIC # PUBLIC
 target_link_libraries(fe_platform PUBLIC fe_core) # PUBLIC
 
 # Link OS threading libraries
-#find_package(Threads REQUIRED)
-#target_link_libraries(fe_platform PRIVATE Threads::Threads) # PRIVATE
+find_package(Threads REQUIRED)
+target_link_libraries(fe_platform PRIVATE Threads::Threads)
