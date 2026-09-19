@@ -6,23 +6,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Vulkan SDK
-        run: sudo apt-get update && sudo apt-get install -y libvulkan-dev vulkan-tools
+      - uses: jakoch/install-vulkan-sdk-action@v1.0.3
+        with:
+          vulkan_version: 1.3.275.0
+          install_runtime: true
+          cache: true
+          stripdown: true
       - name: Configure
         run: cmake --preset wsl-release-gcc
       - name: Build
         run: cmake --build --preset wsl-release-gcc
 
-  build-windows-msvc:
+  build-linux-clang:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jakoch/install-vulkan-sdk-action@v1.0.3
+        with:
+          vulkan_version: 1.3.275.0
+          install_runtime: true
+          cache: true
+          stripdown: true
+      - name: Configure
+        run: cmake --preset wsl-release-clang
+      - name: Build
+        run: cmake --build --preset wsl-release-clang
+
+  build-windows-clang:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: humbletim/setup-vulkan-sdk@v1.2.0
+      - uses: jakoch/install-vulkan-sdk-action@v1.0.3
         with:
-          vulkan-query-version: 1.4.341.1
-          vulkan-components: Vulkan-Headers, Vulkan-Loader
-          vulkan-use-cache: true
+          vulkan_version: 1.3.275.0
+          install_runtime: true
+          cache: true
+          stripdown: true
       - name: Configure
-        run: cmake --preset windows-release
+        run: cmake --preset windows-debug-clang
       - name: Build
-        run: cmake --build --preset windows-release
+        run: cmake --build --preset windows-debug-clang
